@@ -45,7 +45,7 @@ execute: |
 
     echo "And the Data Copy subtask is actually undone"
     snap change "$failed_task_id" | grep -Pq "Undone +.*?Copy snap \"test-snapd-tools\" data"
-    check_empty_glob "$HOME"/snap/test-snapd-tools [0-9]+
+    check_empty_glob "$HOME"/.local/share/snap/test-snapd-tools [0-9]+
     check_empty_glob /var/snap/test-snapd-tools [0-9]+
 
     echo "And the Security Profiles Setup subtask is actually undone"

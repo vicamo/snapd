@@ -16,13 +16,13 @@ execute: |
     data-writer.app
     [ -f /var/snap/data-writer/x1/from-app ]
     [ -f /var/snap/data-writer/common/from-app ]
-    [ -f /root/snap/data-writer/x1/from-app ]
+    [ -f /root/.local/share/snap/data-writer/x1/from-app ]
     # TODO: As soon as `snap run` is used (which creates this directory),
     # uncomment the following line:
-    #[ -f /root/snap/data-writer/common/from-app ]
+    #[ -f /root/.local/share/snap/data-writer/common/from-app ]
 
     echo "Waiting for data writer service to finish..."
-    while [ ! -f /root/snap/data-writer/x1/from-service ]; do
+    while [ ! -f /root/.local/share/snap/data-writer/x1/from-service ]; do
        sleep 1
     done
 
@@ -31,4 +31,4 @@ execute: |
     [ -f /var/snap/data-writer/common/from-service ]
     # TODO: As soon as `snap run` is used (which creates this directory),
     # uncomment the following line:
-    #[ -f /root/snap/data-writer/common/from-service ]
+    #[ -f /root/.local/share/snap/data-writer/common/from-service ]

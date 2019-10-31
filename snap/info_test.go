@@ -1011,13 +1011,13 @@ func (s *infoSuite) testDirAndFileMethods(c *C, info snap.PlaceInfo) {
 	c.Check(info.MountFile(), Equals, "/var/lib/snapd/snaps/name_1.snap")
 	c.Check(info.HooksDir(), Equals, fmt.Sprintf("%s/name/1/meta/hooks", dirs.SnapMountDir))
 	c.Check(info.DataDir(), Equals, "/var/snap/name/1")
-	c.Check(info.UserDataDir("/home/bob"), Equals, "/home/bob/snap/name/1")
-	c.Check(info.UserCommonDataDir("/home/bob"), Equals, "/home/bob/snap/name/common")
+	c.Check(info.UserDataDir("/home/bob"), Equals, "/home/bob/.local/share/snap/name/1")
+	c.Check(info.UserCommonDataDir("/home/bob"), Equals, "/home/bob/.local/share/snap/name/common")
 	c.Check(info.CommonDataDir(), Equals, "/var/snap/name/common")
 	c.Check(info.UserXdgRuntimeDir(12345), Equals, "/run/user/12345/snap.name")
 	// XXX: Those are actually a globs, not directories
-	c.Check(info.DataHomeDir(), Equals, "/home/*/snap/name/1")
-	c.Check(info.CommonDataHomeDir(), Equals, "/home/*/snap/name/common")
+	c.Check(info.DataHomeDir(), Equals, "/home/*/.local/share/snap/name/1")
+	c.Check(info.CommonDataHomeDir(), Equals, "/home/*/.local/share/snap/name/common")
 	c.Check(info.XdgRuntimeDirs(), Equals, "/run/user/*/snap.name")
 }
 
@@ -1039,13 +1039,13 @@ func (s *infoSuite) testInstanceDirAndFileMethods(c *C, info snap.PlaceInfo) {
 	c.Check(info.MountFile(), Equals, "/var/lib/snapd/snaps/name_instance_1.snap")
 	c.Check(info.HooksDir(), Equals, fmt.Sprintf("%s/name_instance/1/meta/hooks", dirs.SnapMountDir))
 	c.Check(info.DataDir(), Equals, "/var/snap/name_instance/1")
-	c.Check(info.UserDataDir("/home/bob"), Equals, "/home/bob/snap/name_instance/1")
-	c.Check(info.UserCommonDataDir("/home/bob"), Equals, "/home/bob/snap/name_instance/common")
+	c.Check(info.UserDataDir("/home/bob"), Equals, "/home/bob/.local/share/snap/name_instance/1")
+	c.Check(info.UserCommonDataDir("/home/bob"), Equals, "/home/bob/.local/share/snap/name_instance/common")
 	c.Check(info.CommonDataDir(), Equals, "/var/snap/name_instance/common")
 	c.Check(info.UserXdgRuntimeDir(12345), Equals, "/run/user/12345/snap.name_instance")
 	// XXX: Those are actually a globs, not directories
-	c.Check(info.DataHomeDir(), Equals, "/home/*/snap/name_instance/1")
-	c.Check(info.CommonDataHomeDir(), Equals, "/home/*/snap/name_instance/common")
+	c.Check(info.DataHomeDir(), Equals, "/home/*/.local/share/snap/name_instance/1")
+	c.Check(info.CommonDataHomeDir(), Equals, "/home/*/.local/share/snap/name_instance/common")
 	c.Check(info.XdgRuntimeDirs(), Equals, "/run/user/*/snap.name_instance")
 }
 
@@ -1525,20 +1525,20 @@ func (s *infoSuite) TestDirAndFileHelpers(c *C) {
 	c.Check(snap.HooksDir("name", snap.R(1)), Equals, fmt.Sprintf("%s/name/1/meta/hooks", dirs.SnapMountDir))
 	c.Check(snap.DataDir("name", snap.R(1)), Equals, "/var/snap/name/1")
 	c.Check(snap.CommonDataDir("name"), Equals, "/var/snap/name/common")
-	c.Check(snap.UserDataDir("/home/bob", "name", snap.R(1)), Equals, "/home/bob/snap/name/1")
-	c.Check(snap.UserCommonDataDir("/home/bob", "name"), Equals, "/home/bob/snap/name/common")
+	c.Check(snap.UserDataDir("/home/bob", "name", snap.R(1)), Equals, "/home/bob/.local/share/snap/name/1")
+	c.Check(snap.UserCommonDataDir("/home/bob", "name"), Equals, "/home/bob/.local/share/snap/name/common")
 	c.Check(snap.UserXdgRuntimeDir(12345, "name"), Equals, "/run/user/12345/snap.name")
-	c.Check(snap.UserSnapDir("/home/bob", "name"), Equals, "/home/bob/snap/name")
+	c.Check(snap.UserSnapDir("/home/bob", "name"), Equals, "/home/bob/.local/share/snap/name")
 
 	c.Check(snap.MountDir("name_instance", snap.R(1)), Equals, fmt.Sprintf("%s/name_instance/1", dirs.SnapMountDir))
 	c.Check(snap.MountFile("name_instance", snap.R(1)), Equals, "/var/lib/snapd/snaps/name_instance_1.snap")
 	c.Check(snap.HooksDir("name_instance", snap.R(1)), Equals, fmt.Sprintf("%s/name_instance/1/meta/hooks", dirs.SnapMountDir))
 	c.Check(snap.DataDir("name_instance", snap.R(1)), Equals, "/var/snap/name_instance/1")
 	c.Check(snap.CommonDataDir("name_instance"), Equals, "/var/snap/name_instance/common")
-	c.Check(snap.UserDataDir("/home/bob", "name_instance", snap.R(1)), Equals, "/home/bob/snap/name_instance/1")
-	c.Check(snap.UserCommonDataDir("/home/bob", "name_instance"), Equals, "/home/bob/snap/name_instance/common")
+	c.Check(snap.UserDataDir("/home/bob", "name_instance", snap.R(1)), Equals, "/home/bob/.local/share/snap/name_instance/1")
+	c.Check(snap.UserCommonDataDir("/home/bob", "name_instance"), Equals, "/home/bob/.local/share/snap/name_instance/common")
 	c.Check(snap.UserXdgRuntimeDir(12345, "name_instance"), Equals, "/run/user/12345/snap.name_instance")
-	c.Check(snap.UserSnapDir("/home/bob", "name_instance"), Equals, "/home/bob/snap/name_instance")
+	c.Check(snap.UserSnapDir("/home/bob", "name_instance"), Equals, "/home/bob/.local/share/snap/name_instance")
 }
 
 func (s *infoSuite) TestSortByType(c *C) {

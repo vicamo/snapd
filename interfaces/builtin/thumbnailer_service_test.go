@@ -115,7 +115,7 @@ func (s *ThumbnailerServiceInterfaceSuite) TestSlotGrantedAccessToPlugFiles(c *C
 	c.Assert(apparmorSpec.SecurityTags(), DeepEquals, []string{"snap.thumbnailer-service.app"})
 	snippet := apparmorSpec.SnippetForTag("snap.thumbnailer-service.app")
 	c.Check(snippet, testutil.Contains, `@{INSTALL_DIR}/client/**`)
-	c.Check(snippet, testutil.Contains, `@{HOME}/snap/client/**`)
+	c.Check(snippet, testutil.Contains, `@{HOME}/.local/share/snap/client/**`)
 	c.Check(snippet, testutil.Contains, `/var/snap/client/**`)
 }
 

@@ -428,8 +428,8 @@ debug-each: |
                     ausearch -i -m AVC || true
                 fi
                 (
-                    find /root/snap -printf '%Z\t%H/%P\n' || true
-                    find /home -regex '/home/[^/]*/snap\(/.*\)?' -printf '%Z\t%H/%P\n' || true
+                    find /root/.local/share/snap -printf '%Z\t%H/%P\n' || true
+                    find /home -regex '/home/[^/]*/\.local/share/snap\(/.*\)?' -printf '%Z\t%H/%P\n' || true
                 ) | grep -v snappy_home_t || true
                 find /var/snap -printf '%Z\t%H/%P\n' | grep -v snappy_var_t || true
                 ;;

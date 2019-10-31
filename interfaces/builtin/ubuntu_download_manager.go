@@ -191,8 +191,8 @@ dbus (send)
     peer=(name=org.freedesktop.DBus, label=###PLUG_SECURITY_TAGS###),
 
 # Allow writing to app download directories
-owner @{HOME}/snap/###PLUG_NAME###/common/Downloads/    rw,
-owner @{HOME}/snap/###PLUG_NAME###/common/Downloads/**  rwk,
+owner @{HOME}/.local/share/snap/###PLUG_NAME###/common/Downloads/    rw,
+owner @{HOME}/.local/share/snap/###PLUG_NAME###/common/Downloads/**  rwk,
 `
 
 type ubuntuDownloadManagerInterface struct{}
