@@ -7,8 +7,8 @@ description: |
 systems: [fedora-*, centos-*]
 
 prepare: |
-    rm -rf /root/snap
-    rm -rf /home/test/snap
+    rm -rf /root/.local/share/snap
+    rm -rf /home/test/.local/share/snap
 
 restore: |
     rm -rf ./*-labels
@@ -25,15 +25,15 @@ execute: |
     su -c 'test-snapd-tools.cmd id -Z' test | MATCH ':unconfined_t:'
     su -c "test-snapd-tools.cmd sh -c 'mkdir -p \$SNAP_USER_DATA/foo && echo hello world > \$SNAP_USER_DATA/foo/bar'" test
 
-    ls -Zd /root/snap /root/snap/test-snapd-tools/current/foo /root/snap/test-snapd-tools/current/foo/bar > root-labels
-    MATCH '^.*:snappy_home_t:.*/root/snap$'                                  < root-labels
-    MATCH '^.*:snappy_home_t:.*/root/snap/test-snapd-tools/current/foo$'     < root-labels
-    MATCH '^.*:snappy_home_t:.*/root/snap/test-snapd-tools/current/foo/bar$' < root-labels
+    ls -Zd /root/.local/share/snap /root/.local/share/snap/test-snapd-tools/current/foo /root/.local/share/snap/test-snapd-tools/current/foo/bar > root-labels
+    MATCH '^.*:snappy_home_t:.*/root/\.local/share/snap$'                                  < root-labels
+    MATCH '^.*:snappy_home_t:.*/root/\.local/share/snap/test-snapd-tools/current/foo$'     < root-labels
+    MATCH '^.*:snappy_home_t:.*/root/\.local/share/snap/test-snapd-tools/current/foo/bar$' < root-labels
 
-    ls -Zd /home/test/snap /home/test/snap/test-snapd-tools/current/foo /home/test/snap/test-snapd-tools/current/foo/bar > test-labels
-    MATCH '^.*:snappy_home_t:.*/home/test/snap$'                                  < test-labels
-    MATCH '^.*:snappy_home_t:.*/home/test/snap/test-snapd-tools/current/foo$'     < test-labels
-    MATCH '^.*:snappy_home_t:.*/home/test/snap/test-snapd-tools/current/foo/bar$' < test-labels
+    ls -Zd /home/test/.local/share/snap /home/test/.local/share/snap/test-snapd-tools/current/foo /home/test/.local/share/snap/test-snapd-tools/current/foo/bar > test-labels
+    MATCH '^.*:snappy_home_t:.*/home/test/\.local/share/snap$'                                  < test-labels
+    MATCH '^.*:snappy_home_t:.*/home/test/\.local/share/snap/test-snapd-tools/current/foo$'     < test-labels
+    MATCH '^.*:snappy_home_t:.*/home/test/\.local/share/snap/test-snapd-tools/current/foo/bar$' < test-labels
 
     #shellcheck disable=SC2012
     ls -Zd /run/snapd | MATCH ':snappy_var_run_t:'

@@ -633,8 +633,8 @@ restore_project_each() {
             # Make sure that we are not leaving behind incorrectly labeled snap
             # files on systems supporting SELinux
             (
-                find /root/snap -printf '%Z\t%H/%P\n' || true
-                find /home -regex '/home/[^/]*/snap\(/.*\)?' -printf '%Z\t%H/%P\n' || true
+                find /root/.local/share/snap -printf '%Z\t%H/%P\n' || true
+                find /home -regex '/home/[^/]*/.local/share/snap\(/.*\)?' -printf '%Z\t%H/%P\n' || true
             ) | grep -c -v snappy_home_t | MATCH "0"
 
             find /var/snap -printf '%Z\t%H/%P\n' | grep -c -v snappy_var_t  | MATCH "0"

@@ -8,17 +8,17 @@ prepare: |
     install_local test-snapd-sh
 restore: |
     snap remove test-snapd-sh
-    rm -rf ~/snap
+    rm -rf ~/.local/share/snap
 execute: |
     # See if umask 777 is respected.
     ( umask 777 && test-snapd-sh -c /bin/true )
     # shellcheck disable=SC2016
     ( umask 777 && test-snapd-sh -c 'touch "$SNAP_USER_COMMON"/canary' )
-    test "$(stat -c %a "$HOME"/snap/test-snapd-sh/common/canary)" = 0
-    rm -rf ~/snap
+    test "$(stat -c %a "$HOME"/.local/share/snap/test-snapd-sh/common/canary)" = 0
+    rm -rf ~/.local/share/snap
 
     # See if umask 000 is respected.
     ( umask 000 && test-snapd-sh -c /bin/true )
     # shellcheck disable=SC2016
     ( umask 000 && test-snapd-sh -c 'touch "$SNAP_USER_COMMON"/canary' )
-    test "$(stat -c %a "$HOME"/snap/test-snapd-sh/common/canary)" = 666
+    test "$(stat -c %a "$HOME"/.local/share/snap/test-snapd-sh/common/canary)" = 666

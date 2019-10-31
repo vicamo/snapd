@@ -100,9 +100,9 @@ func (ts *HTestSuite) TestUser(c *C) {
 	env := userEnv(mockSnapInfo, "/root")
 
 	c.Assert(env, DeepEquals, map[string]string{
-		"HOME":             "/root/snap/foo/17",
-		"SNAP_USER_COMMON": "/root/snap/foo/common",
-		"SNAP_USER_DATA":   "/root/snap/foo/17",
+		"HOME":             "/root/.local/share/snap/foo/17",
+		"SNAP_USER_COMMON": "/root/.local/share/snap/foo/common",
+		"SNAP_USER_DATA":   "/root/.local/share/snap/foo/17",
 		"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.foo", sys.Geteuid()),
 	})
 }
@@ -112,8 +112,8 @@ func (ts *HTestSuite) TestUserForClassicConfinement(c *C) {
 
 	c.Assert(env, DeepEquals, map[string]string{
 		// NOTE HOME Is absent! we no longer override it
-		"SNAP_USER_COMMON": "/root/snap/foo/common",
-		"SNAP_USER_DATA":   "/root/snap/foo/17",
+		"SNAP_USER_COMMON": "/root/.local/share/snap/foo/common",
+		"SNAP_USER_DATA":   "/root/.local/share/snap/foo/17",
 		"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.foo", sys.Geteuid()),
 	})
 }
@@ -149,10 +149,10 @@ func (s *HTestSuite) TestSnapRunSnapExecEnv(c *C) {
 			"SNAP_COMMON": "/var/snap/snapname/common",
 			"SNAP_DATA":   "/var/snap/snapname/42",
 
-			"SNAP_USER_COMMON": fmt.Sprintf("%s/snap/snapname/common", usr.HomeDir),
-			"SNAP_USER_DATA":   fmt.Sprintf("%s/snap/snapname/42", usr.HomeDir),
+			"SNAP_USER_COMMON": fmt.Sprintf("%s/.local/share/snap/snapname/common", usr.HomeDir),
+			"SNAP_USER_DATA":   fmt.Sprintf("%s/.local/share/snap/snapname/42", usr.HomeDir),
 			"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.snapname", sys.Geteuid()),
-			"HOME":             fmt.Sprintf("%s/snap/snapname/42", usr.HomeDir),
+			"HOME":             fmt.Sprintf("%s/.local/share/snap/snapname/42", usr.HomeDir),
 		})
 	}
 }
@@ -195,10 +195,10 @@ func (s *HTestSuite) TestParallelInstallSnapRunSnapExecEnv(c *C) {
 
 			// User's data directories are not mapped to
 			// snap-specific ones
-			"SNAP_USER_COMMON": fmt.Sprintf("%s/snap/snapname_foo/common", usr.HomeDir),
-			"SNAP_USER_DATA":   fmt.Sprintf("%s/snap/snapname_foo/42", usr.HomeDir),
+			"SNAP_USER_COMMON": fmt.Sprintf("%s/.local/share/snap/snapname_foo/common", usr.HomeDir),
+			"SNAP_USER_DATA":   fmt.Sprintf("%s/.local/share/snap/snapname_foo/42", usr.HomeDir),
 			"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.snapname_foo", sys.Geteuid()),
-			"HOME":             fmt.Sprintf("%s/snap/snapname_foo/42", usr.HomeDir),
+			"HOME":             fmt.Sprintf("%s/.local/share/snap/snapname_foo/42", usr.HomeDir),
 		})
 	}
 }
@@ -209,9 +209,9 @@ func (ts *HTestSuite) TestParallelInstallUser(c *C) {
 	env := userEnv(&info, "/root")
 
 	c.Assert(env, DeepEquals, map[string]string{
-		"HOME":             "/root/snap/foo_bar/17",
-		"SNAP_USER_COMMON": "/root/snap/foo_bar/common",
-		"SNAP_USER_DATA":   "/root/snap/foo_bar/17",
+		"HOME":             "/root/.local/share/snap/foo_bar/17",
+		"SNAP_USER_COMMON": "/root/.local/share/snap/foo_bar/common",
+		"SNAP_USER_DATA":   "/root/.local/share/snap/foo_bar/17",
 		"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.foo_bar", sys.Geteuid()),
 	})
 }
@@ -223,8 +223,8 @@ func (ts *HTestSuite) TestParallelInstallUserForClassicConfinement(c *C) {
 
 	c.Assert(env, DeepEquals, map[string]string{
 		// NOTE HOME Is absent! we no longer override it
-		"SNAP_USER_COMMON": "/root/snap/foo_bar/common",
-		"SNAP_USER_DATA":   "/root/snap/foo_bar/17",
+		"SNAP_USER_COMMON": "/root/.local/share/snap/foo_bar/common",
+		"SNAP_USER_DATA":   "/root/.local/share/snap/foo_bar/17",
 		"XDG_RUNTIME_DIR":  fmt.Sprintf("/run/user/%d/snap.foo_bar", sys.Geteuid()),
 	})
 }

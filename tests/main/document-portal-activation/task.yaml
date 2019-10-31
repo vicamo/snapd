@@ -42,7 +42,7 @@ restore: |
 
 execute: |
     echo "No output on stderr when running without a session bus"
-    user_data="$HOME/snap/test-snapd-desktop/current"
+    user_data="$HOME/.local/share/snap/test-snapd-desktop/current"
     test-snapd-desktop.check-dirs "$user_data" 2>stderr.log
     [ "$(wc -c < stderr.log)" -eq 0 ]
 

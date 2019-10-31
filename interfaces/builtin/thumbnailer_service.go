@@ -66,7 +66,7 @@ const thumbnailerServiceConnectedSlotAppArmor = `
 # Description: Allow access to plug's data directory.
 
 @{INSTALL_DIR}/###PLUG_SNAP_NAME###/**     r,
-owner @{HOME}/snap/###PLUG_SNAP_NAME###/** r,
+owner @{HOME}/.local/share/snap/###PLUG_SNAP_NAME###/** r,
 /var/snap/###PLUG_SNAP_NAME###/**          r,
 
 # Description: allow client snaps to access the thumbnailer service.
